@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>InsurePro - Insurance Management System</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: #f8fafc;
+        color: #0f172a;
+      }
+
+      /* =========================
+           NAVBAR
+        ========================= */
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 72px;
+
+        background: rgba(255, 255, 255, 0.96);
+
+        border-bottom: 1px solid #e2e8f0;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 7%;
+
+        z-index: 1000;
+
+        backdrop-filter: blur(10px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-icon {
+        width: 42px;
+        height: 42px;
+
+        border-radius: 12px;
+
+        background: #2563eb;
+        color: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 21px;
+      }
+
+      .brand-name {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #475569;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .nav-links a:hover {
+        color: #2563eb;
+      }
+
+      .login-btn {
+        text-decoration: none;
+
+        padding: 10px 17px;
+
+        border-radius: 8px;
+
+        background: #2563eb;
+        color: white !important;
+
+        font-size: 13px !important;
+      }
+
+      .login-btn:hover {
+        background: #1d4ed8;
+      }
+
+      /* =========================
+           HERO
+        ========================= */
+
+      .hero {
+        min-height: 720px;
+
+        padding: 145px 7% 90px;
+
+        display: grid;
+
+        grid-template-columns: 1.05fr 0.95fr;
+
+        align-items: center;
+
+        gap: 60px;
+
+        background: linear-gradient(
+          135deg,
+          #eff6ff 0%,
+          #ffffff 55%,
+          #f8fafc 100%
+        );
+      }
+
+      .hero-content {
+        max-width: 650px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+
+        padding: 7px 12px;
+
+        border-radius: 20px;
+
+        background: #dbeafe;
+        color: #1d4ed8;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        margin-bottom: 22px;
+      }
+
+      .hero h1 {
+        font-size: clamp(42px, 5vw, 64px);
+
+        line-height: 1.07;
+
+        letter-spacing: -1.8px;
+
+        color: #0f172a;
+      }
+
+      .hero h1 span {
+        color: #2563eb;
+      }
+
+      .hero p {
+        margin-top: 22px;
+
+        max-width: 580px;
+
+        color: #64748b;
+
+        font-size: 17px;
+
+        line-height: 1.7;
+      }
+
+      .hero-buttons {
+        margin-top: 32px;
+
+        display: flex;
+        gap: 12px;
+
+        flex-wrap: wrap;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        border: none;
+        text-decoration: none;
+
+        padding: 13px 20px;
+
+        border-radius: 9px;
+
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .primary-btn {
+        background: #2563eb;
+        color: white;
+      }
+
+      .primary-btn:hover {
+        background: #1d4ed8;
+      }
+
+      .secondary-btn {
+        background: white;
+        color: #334155;
+
+        border: 1px solid #cbd5e1;
+      }
+
+      .secondary-btn:hover {
+        border-color: #2563eb;
+        color: #2563eb;
+      }
+
+      /* =========================
+           HERO VISUAL
+        ========================= */
+
+      .hero-visual {
+        position: relative;
+
+        min-height: 430px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .shield {
+        width: 300px;
+        height: 350px;
+
+        background: linear-gradient(160deg, #2563eb, #1e40af);
+
+        clip-path: polygon(
+          50% 0%,
+          90% 14%,
+          90% 58%,
+          75% 78%,
+          50% 100%,
+          25% 78%,
+          10% 58%,
+          10% 14%
+        );
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: white;
+
+        font-size: 100px;
+
+        filter: drop-shadow(0 25px 35px rgba(37, 99, 235, 0.25));
+      }
+
+      .floating-card {
+        position: absolute;
+
+        background: white;
+
+        border: 1px solid #e2e8f0;
+
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
+
+        border-radius: 14px;
+
+        padding: 17px;
+      }
+
+      .floating-card.card-one {
+        top: 65px;
+        left: 10px;
+      }
+
+      .floating-card.card-two {
+        bottom: 55px;
+        right: 0;
+      }
+
+      .floating-title {
+        font-size: 11px;
+        color: #64748b;
+        margin-bottom: 5px;
+      }
+
+      .floating-value {
+        font-size: 21px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      .green-text {
+        color: #16a34a;
+      }
+
+      /* =========================
+           STATS
+        ========================= */
+
+      .stats {
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 18px;
+
+        padding: 25px 7%;
+
+        background: white;
+
+        border-top: 1px solid #e2e8f0;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .stat {
+        text-align: center;
+        padding: 12px;
+      }
+
+      .stat h3 {
+        font-size: 27px;
+        color: #2563eb;
+      }
+
+      .stat p {
+        margin-top: 4px;
+        color: #64748b;
+        font-size: 12px;
+      }
+
+      /* =========================
+           FEATURES
+        ========================= */
+
+      .section {
+        padding: 90px 7%;
+      }
+
+      .section-heading {
+        text-align: center;
+        max-width: 650px;
+        margin: 0 auto 45px;
+      }
+
+      .section-heading h2 {
+        font-size: 34px;
+        letter-spacing: -0.7px;
+      }
+
+      .section-heading p {
+        margin-top: 11px;
+        color: #64748b;
+        line-height: 1.7;
+      }
+
+      .features {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 22px;
+      }
+
+      .feature-card {
+        background: white;
+
+        border: 1px solid #e2e8f0;
+
+        border-radius: 15px;
+
+        padding: 28px;
+
+        box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+
+        transition: 0.2s;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-4px);
+
+        box-shadow: 0 15px 30px rgba(15, 23, 42, 0.08);
+      }
+
+      .feature-icon {
+        width: 48px;
+        height: 48px;
+
+        background: #dbeafe;
+
+        color: #2563eb;
+
+        border-radius: 12px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 22px;
+
+        margin-bottom: 18px;
+      }
+
+      .feature-card h3 {
+        font-size: 18px;
+      }
+
+      .feature-card p {
+        margin-top: 9px;
+
+        color: #64748b;
+
+        font-size: 13px;
+
+        line-height: 1.7;
+      }
+
+      /* =========================
+           CTA
+        ========================= */
+
+      .cta {
+        margin: 0 7% 80px;
+
+        padding: 55px;
+
+        border-radius: 20px;
+
+        background: linear-gradient(135deg, #2563eb, #1e3a8a);
+
+        color: white;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 30px;
+      }
+
+      .cta h2 {
+        font-size: 30px;
+      }
+
+      .cta p {
+        margin-top: 8px;
+
+        color: #dbeafe;
+
+        max-width: 600px;
+
+        line-height: 1.6;
+      }
+
+      .cta-btn {
+        white-space: nowrap;
+
+        background: white;
+
+        color: #1d4ed8;
+
+        text-decoration: none;
+
+        padding: 13px 20px;
+
+        border-radius: 9px;
+
+        font-size: 14px;
+
+        font-weight: 800;
+      }
+
+      /* =========================
+           FOOTER
+        ========================= */
+
+      footer {
+        background: #0f172a;
+
+        color: white;
+
+        padding: 35px 7%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 20px;
+      }
+
+      footer p {
+        color: #94a3b8;
+        font-size: 12px;
+      }
+
+      footer a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-size: 12px;
+      }
+
+      /* =========================
+           RESPONSIVE
+        ========================= */
+
+      @media (max-width: 1000px) {
+        .hero {
+          grid-template-columns: 1fr;
+
+          text-align: center;
+        }
+
+        .hero-content {
+          margin: auto;
+        }
+
+        .hero p {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .hero-buttons {
+          justify-content: center;
+        }
+
+        .hero-visual {
+          min-height: 350px;
+        }
+
+        .features {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 700px) {
+        nav {
+          padding: 0 5%;
+        }
+
+        .nav-links a:not(.login-btn) {
+          display: none;
+        }
+
+        .hero {
+          padding: 125px 5% 60px;
+        }
+
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+
+          padding-left: 5%;
+          padding-right: 5%;
+        }
+
+        .section {
+          padding: 65px 5%;
+        }
+
+        .features {
+          grid-template-columns: 1fr;
+        }
+
+        .cta {
+          margin: 0 5% 60px;
+
+          padding: 35px 25px;
+
+          flex-direction: column;
+
+          align-items: flex-start;
+        }
+
+        footer {
+          flex-direction: column;
+
+          align-items: flex-start;
+
+          padding: 30px 5%;
+        }
+      }
+
+      @media (max-width: 450px) {
+        .shield {
+          width: 220px;
+          height: 270px;
+          font-size: 75px;
+        }
+
+        .floating-card.card-one {
+          left: -5px;
+          top: 30px;
+        }
+
+        .floating-card.card-two {
+          right: -5px;
+          bottom: 25px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =========================
+     NAVBAR
+========================= -->
+
+    <nav>
+      <div class="brand">
+        <div class="brand-icon">🛡️</div>
+
+        <div class="brand-name">InsurePro</div>
+      </div>
+
+      <div class="nav-links">
+        <a href="#features"> Features </a>
+
+        <a href="#about"> About </a>
+
+        <a href="/login" class="login-btn"> Login </a>
+      </div>
+    </nav>
+
+    <!-- =========================
+     HERO
+========================= -->
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="tag">🛡️ Smart Insurance Management</div>
+
+        <h1>
+          Manage your
+          <span>insurance</span>
+          with confidence.
+        </h1>
+
+        <p>
+          A modern insurance management platform for customers, agents and
+          administrators. Manage policies, claims and secure premium payments
+          from one simple dashboard.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="/login" class="primary-btn"> Get Started → </a>
+
+          <a href="#features" class="secondary-btn"> Explore Features </a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="shield">🛡️</div>
+
+        <div class="floating-card card-one">
+          <div class="floating-title">Policy Protection</div>
+
+          <div class="floating-value">Active</div>
+        </div>
+
+        <div class="floating-card card-two">
+          <div class="floating-title">Payment Status</div>
+
+          <div class="floating-value green-text">Paid ✓</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+     STATS
+========================= -->
+
+    <section class="stats">
+      <div class="stat">
+        <h3>24/7</h3>
+
+        <p>Access</p>
+      </div>
+
+      <div class="stat">
+        <h3>Secure</h3>
+
+        <p>Authentication</p>
+      </div>
+
+      <div class="stat">
+        <h3>Fast</h3>
+
+        <p>Claim Management</p>
+      </div>
+
+      <div class="stat">
+        <h3>₹</h3>
+
+        <p>Secure Payments</p>
+      </div>
+    </section>
+
+    <!-- =========================
+     FEATURES
+========================= -->
+
+    <section class="section" id="features">
+      <div class="section-heading">
+        <h2>Everything you need</h2>
+
+        <p>
+          One platform to manage customers, policies, claims and payments
+          efficiently.
+        </p>
+      </div>
+
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+
+          <h3>Customer Management</h3>
+
+          <p>
+            Maintain customer records, contact details and policy relationships
+            from one centralized dashboard.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📄</div>
+
+          <h3>Policy Management</h3>
+
+          <p>
+            Create, view and manage insurance policies with premium, coverage,
+            dates and status tracking.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🧾</div>
+
+          <h3>Claims Management</h3>
+
+          <p>
+            Submit claims, monitor their status and allow authorized agents or
+            administrators to review them.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💳</div>
+
+          <h3>Secure Payments</h3>
+
+          <p>
+            Accept insurance premium payments through Razorpay with secure
+            payment verification.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔐</div>
+
+          <h3>Role-Based Security</h3>
+
+          <p>
+            JWT authentication and role-based permissions keep administrative,
+            agent and customer operations secure.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+
+          <h3>Dashboard Analytics</h3>
+
+          <p>
+            Get a quick overview of customers, policies and operational activity
+            through a clean dashboard.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+     ABOUT
+========================= -->
+
+    <section class="section" id="about" style="padding-top: 20px">
+      <div class="section-heading">
+        <h2>Built for modern insurance operations</h2>
+
+        <p>
+          InsurePro brings customer management, policy administration, claims
+          processing and payment workflows together in one secure application.
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================
+     CTA
+========================= -->
+
+    <section class="cta">
+      <div>
+        <h2>Ready to manage insurance smarter?</h2>
+
+        <p>
+          Sign in to your dashboard and manage customers, policies, claims and
+          payments from one place.
+        </p>
+      </div>
+
+      <a href="/login" class="cta-btn"> Open Dashboard → </a>
+    </section>
+
+    <!-- =========================
+     FOOTER
+========================= -->
+
+    <footer>
+      <div>
+        <strong> 🛡️ InsurePro </strong>
+
+        <p>Insurance Management System</p>
+      </div>
+
+      <div>
+        <a href="/login"> Login </a>
+      </div>
+    </footer>
+  </body>
+</html>

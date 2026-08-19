@@ -13,3 +13,5 @@ instance/
 
 # VS Code
 .vscode/
+
+insurance_db.sql
